@@ -66,7 +66,7 @@ namespace IdleMasterExtended
         {
             SaveWhitelist();
 
-            if (Settings.Default.IdlingModeWhitelist)
+            if (Settings.Default.IdlingModeWhitelist || Settings.Default.IdlingModeWhiteListOneGame)
             {
                 mainForm.StopIdle();
                 await mainForm.LoadBadgesAsync();

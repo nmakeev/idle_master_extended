@@ -43,8 +43,7 @@ namespace IdleMasterExtended
                 Settings.Default.language = cboLanguage.Text;
             }
 
-            Settings.Default.OneThenMany = Settings.Default.OnlyOneGameIdle 
-                = Settings.Default.fastMode = Settings.Default.IdlingModeWhitelist = false;
+            ResetModes();
             
             if (radFastMode.Checked)
             {
@@ -53,6 +52,10 @@ namespace IdleMasterExtended
             else if (radWhitelistMode.Checked)
             {
                 Settings.Default.IdlingModeWhitelist = true;
+            }
+            else if (radWhitelistOneGameOnly.Checked)
+            {
+                Settings.Default.IdlingModeWhiteListOneGame = true;
             }
             else if (radOneThenMany.Checked)
             {
@@ -71,6 +74,15 @@ namespace IdleMasterExtended
             Settings.Default.Save();
 
             Close();
+        }
+
+        private void ResetModes()
+        {
+            Settings.Default.OneThenMany = false;
+            Settings.Default.OnlyOneGameIdle = false;
+            Settings.Default.fastMode = false;
+            Settings.Default.IdlingModeWhitelist = false;
+            Settings.Default.IdlingModeWhiteListOneGame = false;
         }
 
         private void frmSettings_Load(object sender, EventArgs e)
@@ -141,6 +153,10 @@ namespace IdleMasterExtended
             else if (Settings.Default.IdlingModeWhitelist)
             {
                 radWhitelistMode.Checked = true;
+            }
+            else if (Settings.Default.IdlingModeWhiteListOneGame)
+            {
+                radWhitelistOneGameOnly.Checked = true;
             }
             else if (Settings.Default.OneThenMany)
             {

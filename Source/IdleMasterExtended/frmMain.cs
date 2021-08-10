@@ -67,7 +67,7 @@ namespace IdleMasterExtended
         {
             picReadingPage.Visible = true;
 
-            if (Settings.Default.IdlingModeWhitelist)
+            if (Settings.Default.IdlingModeWhitelist || Settings.Default.IdlingModeWhiteListOneGame)
             {
                 AllBadges.Clear();
 
@@ -296,7 +296,7 @@ namespace IdleMasterExtended
                     tmrStatistics.Enabled = true;
                     tmrStatistics.Start();
 
-                    if (Settings.Default.OnlyOneGameIdle)
+                    if (Settings.Default.OnlyOneGameIdle || Settings.Default.IdlingModeWhiteListOneGame) 
                     {
                         StartSoloIdle(CanIdleBadges.First());
                     }
@@ -306,7 +306,7 @@ namespace IdleMasterExtended
                         {
                             var multi = CanIdleBadges.Where(b => b.HoursPlayed >= 2);
 
-                            if (multi.Count() >= 1)
+                            if (multi.Any())
                                 StartSoloIdle(multi.First());
                             else
                                 StartMultipleIdle();
@@ -998,7 +998,7 @@ namespace IdleMasterExtended
             btnPause.Visible = true;
             pauseIdlingToolStripMenuItem.Enabled = true;
 
-            if (Settings.Default.fastMode || Settings.Default.IdlingModeWhitelist)
+            if (Settings.Default.fastMode || Settings.Default.IdlingModeWhitelist || Settings.Default.IdlingModeWhiteListOneGame)
             {
                 btnSkip.Visible = false;
                 skipGameToolStripMenuItem.Enabled = false;
@@ -1125,16 +1125,19 @@ namespace IdleMasterExtended
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // Show the form
-            String previous = Settings.Default.sort;
-            Boolean previous_behavior = Settings.Default.OnlyOneGameIdle;
-            Boolean previous_behavior2 = Settings.Default.OneThenMany;
-            Boolean previous_behavior3 = Settings.Default.fastMode;
-            Boolean previous_behavior4 = Settings.Default.IdlingModeWhitelist;
+            var previous = Settings.Default.sort;
+            var previous_behavior = Settings.Default.OnlyOneGameIdle;
+            var previous_behavior2 = Settings.Default.OneThenMany;
+            var previous_behavior3 = Settings.Default.fastMode;
+            var previous_behavior4 = Settings.Default.IdlingModeWhitelist;
+            var previousBehaviour5 = Settings.Default.IdlingModeWhiteListOneGame;
+            
             Form frm = new frmSettings();
             frm.ShowDialog();
 
             if (previous != Settings.Default.sort || previous_behavior != Settings.Default.OnlyOneGameIdle || previous_behavior2 != Settings.Default.OneThenMany
-                || previous_behavior3 != Settings.Default.fastMode || previous_behavior4 != Settings.Default.IdlingModeWhitelist)
+                || previous_behavior3 != Settings.Default.fastMode || previous_behavior4 != Settings.Default.IdlingModeWhitelist ||
+                previousBehaviour5 != Settings.Default.IdlingModeWhiteListOneGame)
             {
                 StopIdle();
                 AllBadges.Clear();

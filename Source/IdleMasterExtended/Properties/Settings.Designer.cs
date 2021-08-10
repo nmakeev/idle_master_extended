@@ -386,5 +386,18 @@ namespace IdleMasterExtended.Properties {
                 this["IdlingModeWhitelist"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IdlingModeWhiteListOneGame
+        {
+            get {
+                return ((bool) this["IdlingModeWhiteListOneGame"]);
+            }
+            set {
+                this["IdlingModeWhiteListOneGame"] = value;
+            }
+        }
     }
 }
