@@ -66,7 +66,7 @@ namespace IdleMasterExtended
         {
             SaveWhitelist();
 
-            if (Settings.Default.IdlingModeWhitelist || Settings.Default.IdlingModeWhiteListOneGame)
+            if (Settings.Default.IdlingModeWhitelist)
             {
                 mainForm.StopIdle();
                 await mainForm.LoadBadgesAsync();
@@ -83,6 +83,17 @@ namespace IdleMasterExtended
                 }
 
                 mainForm.DisableCardDropCheckTimer();
+                mainForm.UpdateStateInfo();
+            } 
+            else if (Settings.Default.IdlingModeWhiteListOneGame)
+            {
+                mainForm.StopIdle();
+                await mainForm.LoadBadgesAsync();
+                
+                mainForm.StartSoloIdle(
+                    mainForm.AllBadges.FirstOrDefault(b => b.AppId == int.Parse(lstWhitelist.Items[0].ToString()))
+                );
+                
                 mainForm.UpdateStateInfo();
             }
             else
